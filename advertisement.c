@@ -73,7 +73,7 @@ void advParameters(){
 	 */
 	gecko_cmd_le_gap_set_adv_timeout(timeout_adv);
 
-	printf("[CMD-GAP]: ADV Parameters set: int_min: %d ms int_max: %d ms\n", min_interval_adv, max_interval_adv);
+	printf("[CMD-GAP]: ADV Parameters set: int_min: %04x hex int_max: %04x hex \n", min_interval_adv, max_interval_adv);
 }
 /**
  * Function to start advertising mode

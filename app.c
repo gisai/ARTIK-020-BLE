@@ -114,11 +114,9 @@ void appInit(int* _main_state)
                                               strlen(devName),
                                               (uint8_t *)devName);
 
-	// Configure ADV parameters
-  advParameters();
 
-   // Configure Connection parameters
-  SetupConnParameters();
+
+
 
   // Init printed image
   for(i=0;i<sizeof(Image1);i++){
@@ -158,6 +156,7 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
   	case gecko_evt_system_boot_id:
   		printf("[SYSTEM-EVENT]: SYSTEM AND RADIO READY \n");
 
+  		advParameters();
   		setDiscoverableMode();
 
   	  	break;
@@ -190,6 +189,7 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
     	printf("[CONECTION-EVENT]: New connection\n");
 
       /* Call advertisement.c connection started callback */
+    	SetupConnParameters();
     	setDiscoverableMode();
     	//setUnDiscoverableMode();   -> We desactivate to debug. ACTIVATE FINALLY
       break;
@@ -322,3 +322,5 @@ void pintaPantalla(){
 	//RESET The system (BT RESTARTED)
 	//gecko_cmd_system_reset(0);
 }
+
+
