@@ -8,6 +8,6 @@ ALL OK
 
 Error/Warning output
 WARNING: 2a00 length attribute is 13 but actual value length is 6. 13 will be used.
-WARNING: fec26ec46d7144429f8155bc21d658d6 max length attribute is 20 but actual value length is 1. 20 will be used.
+WARNING: fec26ec46d7144429f8155bc21d658d6 max length attribute is 250 but actual value length is 1. 250 will be used.
 
 

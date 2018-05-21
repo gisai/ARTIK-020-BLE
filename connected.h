@@ -15,9 +15,4 @@
 #define timeout_conn		1000 // range 100ms(0x000a)-32s(0x0c80) --> Value= 100*10ms= 1000ms
 
 
-
-
-
-void SetupConnParameters(void);
-
 #endif /* CONNECTED_H_ */

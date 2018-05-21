@@ -189,9 +189,10 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
     	printf("[CONECTION-EVENT]: New connection\n");
 
       /* Call advertisement.c connection started callback */
-    	SetupConnParameters();
-    	setDiscoverableMode();
-    	//setUnDiscoverableMode();   -> We desactivate to debug. ACTIVATE FINALLY
+    	gecko_cmd_le_connection_set_parameters(evt->data.evt_le_connection_opened.connection, min_interval_conn,
+    			max_interval_conn, latency_conn, timeout_conn);
+
+    	setUnDiscoverableMode();
       break;
 
     case gecko_evt_le_connection_parameters_id:
@@ -222,9 +223,9 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
     	 // New packets send by ARTIK-5. We will keep the control of transmission
     	 //
     	  if (evt->data.evt_gatt_server_attribute_value.attribute == gattdb_gatt_spp_data){
+
            	 for(i=0;i<evt->data.evt_gatt_server_attribute_value.value.len;i++)
            	 {
-
            		 image_to_print.data[image_to_print.pointer]=evt->data.evt_gatt_server_attribute_value.value.data[i];
            		 image_to_print.pointer++;
            	 }
@@ -264,6 +265,7 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 //      					printf("%c", image_to_print.data[i]);
 //      				}
       				printStats(&image_to_print);   // We print the stats of the reception
+      				pintaPantalla();			   // We print the image
       				pintaPantalla();			   // We print the image
       				*main_state = STATE_CONNECTED;
       				SLEEP_SleepBlockEnd(sleepEM2); // enable sleeping

@@ -67,7 +67,7 @@ appPlugin: stack_bridge=false
     <informativeText>Custom service</informativeText>
     <characteristic id="gatt_spp_data" name="SPP_data" sourceId="custom.type" uuid="fec26ec4-6d71-4442-9f81-55bc21d658d6">
       <informativeText>Custom characteristic</informativeText>
-      <value length="20" type="hex" variable_length="true">0x00</value>
+      <value length="250" type="hex" variable_length="true">0x00</value>
       <properties notify="true" notify_requirement="optional" read="true" read_requirement="optional" write="true" write_requirement="optional"/>
     </characteristic>
   </service>
