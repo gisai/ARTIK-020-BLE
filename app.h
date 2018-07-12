@@ -21,8 +21,8 @@ extern "C" {
  **************************************************************************************************/
 /* Text definitions*/
 /* Must match length of APP_DEVNAME_DEFAULT after printf formatting */
-#define APP_DEVNAME                  "SCREEN-%2u"
-#define APP_DEVNAME_DEFAULT          "SCREEN-00"
+#define APP_DEVNAME                  "SCREEN-%3d"
+#define APP_DEVNAME_DEFAULT          "SCREEN-000"
 /* subtract 1 because of terminating NULL character */
 #define APP_DEVNAME_LEN              (sizeof(APP_DEVNAME_DEFAULT) - 1)
 
@@ -31,6 +31,7 @@ extern "C" {
 #define STATE_SPP_MODE      	3
 #define STATE_PRINTING_SCREEN 	4
 
+#define Tx_Power	105    // dBm = Tx_Power/10
 /***********************************************************************************************//**
  * \defgroup app Application Code
  * \brief Sample Application Implementation

@@ -65,6 +65,7 @@ main.o: ../main.c ../init_mcu.h ../init_board.h ../init_app.h \
  ../hal-config.h ../retargetserial.h \
  C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\halconfig/retargetserialhalconfig.h \
  ../app.h ../spp.h \
+ C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\inc/sleep.h \
  C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\halconfig/bsphalconfig.h \
  C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\bsp/bsp_bcp.h
 
@@ -211,6 +212,8 @@ C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\h
 ../app.h:
 
 ../spp.h:
+
+C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\inc/sleep.h:
 
 C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\halconfig/bsphalconfig.h:
 

@@ -57,6 +57,8 @@
 
 
 
+
+
 #define sz_iTC_287  6
 extern unsigned char const  Image_iTC_287_01[];
 extern unsigned char const  Image_iTC_287_02[];
@@ -114,16 +116,14 @@ void appInit(int* _main_state)
                                               strlen(devName),
                                               (uint8_t *)devName);
 
-
-
-
-
   // Init printed image
   for(i=0;i<sizeof(Image1);i++){
-	  image_printed.data[i]=Image1[i];
+	  image_printed.data[i] = Image1[i];
   }
 
   image_printed.pointer=sizeof(Image1)-1;
+
+
 
 }
 
@@ -138,6 +138,7 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 
   /* Flag for indicating DFU Reset must be performed */
   static uint8_t boot_to_dfu = 0;
+  uint8 conn_handle;
 
 
 
@@ -156,6 +157,8 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
   	case gecko_evt_system_boot_id:
   		printf("[SYSTEM-EVENT]: SYSTEM AND RADIO READY \n");
 
+  	    gecko_cmd_system_set_tx_power(Tx_Power);
+
   		advParameters();
   		setDiscoverableMode();
 
@@ -170,15 +173,12 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
     /* Event indicates the conection has finish (was closed) */
     case gecko_evt_le_connection_closed_id:
 
-
     	reset_variables(&image_to_print);
 
     	printf("[CONECTION-EVENT]: Closed connection\n");
 
-
         /* Restart advertising after client has disconnected */
-    	    SLEEP_SleepBlockEnd(sleepEM2); // enable sleeping
-        	setDiscoverableMode();
+        setDiscoverableMode();
 
       break;
 
@@ -187,12 +187,13 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
     	*main_state = STATE_CONNECTED;
 
     	printf("[CONECTION-EVENT]: New connection\n");
-
-      /* Call advertisement.c connection started callback */
-    	gecko_cmd_le_connection_set_parameters(evt->data.evt_le_connection_opened.connection, min_interval_conn,
-    			max_interval_conn, latency_conn, timeout_conn);
-
     	setUnDiscoverableMode();
+
+    	conn_handle = evt->data.evt_le_connection_opened.connection;
+
+        /* We set the connection interval to 7 ms */
+      	gecko_cmd_le_connection_set_parameters(conn_handle, min_interval_conn,
+      			max_interval_conn, latency_conn, timeout_conn);
       break;
 
     case gecko_evt_le_connection_parameters_id:
@@ -221,17 +222,22 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
       /* Value of attribute changed from the local database by remote GATT client */
       case gecko_evt_gatt_server_attribute_value_id:
     	 // New packets send by ARTIK-5. We will keep the control of transmission
-    	 //
+
     	  if (evt->data.evt_gatt_server_attribute_value.attribute == gattdb_gatt_spp_data){
+
+
 
            	 for(i=0;i<evt->data.evt_gatt_server_attribute_value.value.len;i++)
            	 {
            		 image_to_print.data[image_to_print.pointer]=evt->data.evt_gatt_server_attribute_value.value.data[i];
            		 image_to_print.pointer++;
+           		//printf("L: %d P: %d D: %c\n", evt->data.evt_gatt_server_attribute_value.value.len, image_to_print.pointer,evt->data.evt_gatt_server_attribute_value.value.data[i]);
            	 }
 
            	 image_to_print.num_bytes_received += evt->data.evt_gatt_server_attribute_value.value.len;
            	 image_to_print.num_packets_recived++;
+
+           	//printStats(&image_to_print);
     	  }
       break;
 
@@ -252,23 +258,26 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
       			// Characteristic client configuration (CCC) for spp_data has been changed
       			if(pStatus->client_config_flags == gatt_notification)
       			{
+      				SLEEP_SleepBlockBegin(sleepEM1); // disable sleeping
       				printf("SPP mode ON\r\n");
       				*main_state = STATE_SPP_MODE;
       				copy_Image(&image_to_print, &image_printed);
-      				SLEEP_SleepBlockBegin(sleepEM2); // disable sleeping
       			}
       			else
       			{
-      				printf("SPP mode OFF\r\n");
+//      				printf("SPP mode OFF\r\n");
 //      				printf("DATA STORED:\n");
-//      				for(i=0;i<image_to_print.pointer;i++){
+//     				for(i=0;i<image_to_print.pointer;i++){
 //      					printf("%c", image_to_print.data[i]);
 //      				}
-      				printStats(&image_to_print);   // We print the stats of the reception
-      				pintaPantalla();			   // We print the image
-      				pintaPantalla();			   // We print the image
-      				*main_state = STATE_CONNECTED;
-      				SLEEP_SleepBlockEnd(sleepEM2); // enable sleeping
+      				//printStats(&image_to_print);   // We print the stats of the reception
+      				SLEEP_SleepBlockBegin(sleepEM1); // disable sleeping
+      				printf("[ENERGY-MODE]: EM1");
+      				pintaPantalla();
+      				SLEEP_SleepBlockEnd(sleepEM1); // enable sleeping
+      				printf("[ENERGY-MODE]: EM2");
+      				*main_state = STATE_ADVERTISING;//Change state
+      				gecko_cmd_le_connection_close(conn_handle);
       			}
       		}
       	}
@@ -295,7 +304,7 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 void pintaPantalla(){
 
 	 *main_state = STATE_PRINTING_SCREEN;//Change state
-	 SLEEP_SleepBlockBegin(sleepEM2);    // disable sleeping
+
 
 	/* EPD Initialize */
 	EPD_display_init();
@@ -319,9 +328,6 @@ void pintaPantalla(){
 		printf("[EPD-UPDATE]: ERROR!\n");
 	}
 
-	 *main_state = STATE_ADVERTISING;    // Return to advertise
-	 SLEEP_SleepBlockEnd(sleepEM2); 	  // enable sleeping
-	//RESET The system (BT RESTARTED)
 	//gecko_cmd_system_reset(0);
 }
 

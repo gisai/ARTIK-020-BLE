@@ -7,7 +7,6 @@ C_SRCS += \
 ../advertisement.c \
 ../app.c \
 ../application_properties.c \
-../connected.c \
 ../debug_printf.c \
 ../gatt_db.c \
 ../init_app.c \
@@ -23,7 +22,6 @@ OBJS += \
 ./advertisement.o \
 ./app.o \
 ./application_properties.o \
-./connected.o \
 ./debug_printf.o \
 ./gatt_db.o \
 ./init_app.o \
@@ -39,7 +37,6 @@ C_DEPS += \
 ./advertisement.d \
 ./app.d \
 ./application_properties.d \
-./connected.d \
 ./debug_printf.d \
 ./gatt_db.d \
 ./init_app.d \
@@ -71,13 +68,6 @@ application_properties.o: ../application_properties.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GNU ARM C Compiler'
 	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m4 -mthumb -std=c99 '-D__STACK_SIZE=0x800' '-D__HEAP_SIZE=0xD00' '-DHAL_CONFIG=1' '-DEFR32BG1B232F256GM48=1' -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emlib\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Include" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\halconfig" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emlib\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\drivers" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\protocol\bluetooth_2.7\ble_stack\inc\common" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\bsp" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\CMSIS\Include" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\tempdrv\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\radio\rail_lib\chip\efr32" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Source" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\EFR32BG1_BRD4300C\config" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\tempdrv\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Source\GCC" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\app\bluetooth_2.7\common\stack_bridge" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\radio\rail_lib\common" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\protocol\bluetooth_2.7\ble_stack\inc\soc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\common\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\halconfig\inc\hal-config" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\uartdrv\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\gpiointerrupt\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\bootloader\api" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\bootloader" -O2 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -MMD -MP -MF"application_properties.d" -MT"application_properties.o" -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-connected.o: ../connected.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: GNU ARM C Compiler'
-	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m4 -mthumb -std=c99 '-D__STACK_SIZE=0x800' '-D__HEAP_SIZE=0xD00' '-DHAL_CONFIG=1' '-DEFR32BG1B232F256GM48=1' -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emlib\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Include" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\halconfig" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emlib\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\drivers" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\protocol\bluetooth_2.7\ble_stack\inc\common" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\common\bsp" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\CMSIS\Include" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\tempdrv\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\radio\rail_lib\chip\efr32" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Source" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\hardware\kit\EFR32BG1_BRD4300C\config" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\tempdrv\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\Device\SiliconLabs\EFR32BG1B\Source\GCC" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\app\bluetooth_2.7\common\stack_bridge" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\radio\rail_lib\common" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\src" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\protocol\bluetooth_2.7\ble_stack\inc\soc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\common\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\sleep\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\halconfig\inc\hal-config" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\uartdrv\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\emdrv\gpiointerrupt\inc" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\bootloader\api" -I"C:\Users\Salva\SimplicityStudio\v4_workspace\ARTIK-020-BLE\platform\bootloader" -O2 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -MMD -MP -MF"connected.d" -MT"connected.o" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

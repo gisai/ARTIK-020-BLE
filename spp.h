@@ -16,7 +16,7 @@
 /*************************************/
 typedef struct
 {
-	char data[image_length];	// Vector to storage data
+	unsigned char data[image_length];	// Vector to storage data
 	uint32 pointer;				// Pointer to control the storage
 	uint32 num_bytes_received;	// Nums of bytes count
 	uint32 num_packets_recived; // Nums of packets count

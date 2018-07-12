@@ -42,6 +42,7 @@
 /* APP includes */
 #include "app.h"
 #include "spp.h"
+#include "sleep.h"
 
 #if defined(HAL_CONFIG)
 #include "bsphalconfig.h"
@@ -116,6 +117,7 @@ void main(void){
   while(1){
  	  /* Event pointer for handling events */
  	    struct gecko_cmd_packet* evt;
+
 
  	    if (_main_state == STATE_SPP_MODE || _main_state == STATE_PRINTING_SCREEN){
 

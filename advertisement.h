@@ -41,8 +41,8 @@ extern "C" {
 #define ADV_TX_POWER_LEN  2
 
 // ADV Parameters
-#define min_interval_adv		0x0020		// range 0x0020 (20ms) to 0x4000 (10.24 s)
-#define max_interval_adv		0x0020		// range 0x0020 (20ms) to 0x4000 (10.24 s)
+#define min_interval_adv		0x0020//0x1540		// range 0x0020 (20ms) to 0x4000 (10.24 s) Value: 4 segundos
+#define max_interval_adv		0x0020//0x1540		// range 0x0020 (20ms) to 0x4000 (10.24 s) Value: 4 segundos
 #define channel_map_adv			7       // defautl 7
 
 // ADV timeout
