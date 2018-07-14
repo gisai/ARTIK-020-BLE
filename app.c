@@ -177,8 +177,10 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 
     	printf("[CONECTION-EVENT]: Closed connection\n");
 
+
         /* Restart advertising after client has disconnected */
         setDiscoverableMode();
+    	*main_state = STATE_ADVERTISING;//Change state
 
       break;
 
@@ -271,13 +273,9 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 //      					printf("%c", image_to_print.data[i]);
 //      				}
       				//printStats(&image_to_print);   // We print the stats of the reception
-      				SLEEP_SleepBlockBegin(sleepEM1); // disable sleeping
-      				printf("[ENERGY-MODE]: EM1");
       				pintaPantalla();
-      				SLEEP_SleepBlockEnd(sleepEM1); // enable sleeping
-      				printf("[ENERGY-MODE]: EM2");
-      				*main_state = STATE_ADVERTISING;//Change state
       				gecko_cmd_le_connection_close(conn_handle);
+
       			}
       		}
       	}
@@ -304,6 +302,8 @@ void appHandleEvents(struct gecko_cmd_packet *evt)
 void pintaPantalla(){
 
 	 *main_state = STATE_PRINTING_SCREEN;//Change state
+	 SLEEP_SleepBlockBegin(sleepEM1); // disable sleeping
+	 printf("[ENERGY-MODE]: EM1");
 
 
 	/* EPD Initialize */
@@ -327,6 +327,13 @@ void pintaPantalla(){
 	}else{
 		printf("[EPD-UPDATE]: ERROR!\n");
 	}
+
+	EPD_Power_off_Ex();
+
+	SLEEP_SleepBlockEnd(sleepEM1); // enable sleeping
+	printf("[ENERGY-MODE]: EM2");
+
+
 
 	//gecko_cmd_system_reset(0);
 }

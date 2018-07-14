@@ -104,7 +104,7 @@ void main(void){
   gecko_init(&config);
 
   // Initialize VCOM
-  RETARGET_SerialInit();
+  //RETARGET_SerialInit();
 
   // Initialize bluetooth name
   appInit(&_main_state);
